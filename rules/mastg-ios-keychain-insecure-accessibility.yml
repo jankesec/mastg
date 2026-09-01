@@ -1,0 +1,11 @@
+rules:
+  - id: mastg-ios-keychain-insecure-accessibility
+    severity: WARNING
+    languages:
+      - swift
+    metadata:
+      summary: Detects insecure Keychain accessibility attributes (kSecAttrAccessibleAlways, kSecAttrAccessibleAlwaysThisDeviceOnly).
+    message: "[MASVS-STORAGE-1] Deprecated and insecure Keychain accessibility attribute in use."
+    pattern-either:
+      - pattern: kSecAttrAccessibleAlways
+      - pattern: kSecAttrAccessibleAlwaysThisDeviceOnly

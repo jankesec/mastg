@@ -1,0 +1,14 @@
+rules:
+  - id: mastg-ios-broken-encryption-algorithms
+    severity: WARNING
+    languages:
+      - swift
+    metadata:
+      summary: Detects the use of broken or deprecated symmetric encryption algorithms (DES, 3DES, RC4, RC2, Blowfish).
+    message: "[MASVS-CRYPTO-1] Broken or deprecated symmetric encryption algorithm found in use."
+    pattern-either:
+      - pattern: kCCAlgorithmDES
+      - pattern: kCCAlgorithm3DES
+      - pattern: kCCAlgorithmRC4
+      - pattern: kCCAlgorithmRC2
+      - pattern: kCCAlgorithmBlowfish

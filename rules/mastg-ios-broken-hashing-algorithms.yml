@@ -1,0 +1,13 @@
+rules:
+  - id: mastg-ios-broken-hashing-algorithms
+    severity: WARNING
+    languages:
+      - swift
+    metadata:
+      summary: Detects the use of deprecated or broken hashing algorithms (MD5, SHA1).
+    message: "[MASVS-CRYPTO-1] Broken cryptographic hashing algorithm (MD5 or SHA1) found in use."
+    pattern-either:
+      - pattern: CC_MD5(...)
+      - pattern: CC_SHA1(...)
+      - pattern: Insecure.MD5.$FUNC(...)
+      - pattern: Insecure.SHA1.$FUNC(...)
