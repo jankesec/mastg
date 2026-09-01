@@ -1,0 +1,11 @@
+rules:
+  - id: mastg-ios-webview-evaluatejavascript-untrusted
+    severity: WARNING
+    languages:
+      - swift
+    metadata:
+      summary: Detects string interpolation and untrusted input passed to WKWebView evaluateJavaScript.
+    message: "[MASVS-PLATFORM-2] Untrusted JavaScript evaluation detected in WKWebView."
+    pattern-either:
+      - pattern: $WEBVIEW.evaluateJavaScript("\($PARAM)", ...)
+      - pattern: $WEBVIEW.evaluateJavaScript($STRING + $PARAM, ...)

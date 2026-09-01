@@ -1,0 +1,21 @@
+rules:
+  - id: mastg-ios-network-insecure-trust-evaluation
+    severity: WARNING
+    languages:
+      - swift
+    metadata:
+      summary: Detects disabled or improper TLS server trust evaluation in URLSession delegate.
+    message: "[MASVS-NETWORK-1] Potential TLS certificate validation bypass detected in URLSessionDelegate."
+    pattern-either:
+      - pattern: |
+          func urlSession($SESSION: URLSession, didReceive $CHALLENGE: URLAuthenticationChallenge, completionHandler $HANDLER: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
+            ...
+            $HANDLER(.useCredential, URLCredential(trust: $TRUST))
+            ...
+          }
+      - pattern: |
+          func urlSession($SESSION: URLSession, task $TASK: URLSessionTask, didReceive $CHALLENGE: URLAuthenticationChallenge, completionHandler $HANDLER: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
+            ...
+            $HANDLER(.useCredential, URLCredential(trust: $TRUST))
+            ...
+          }
